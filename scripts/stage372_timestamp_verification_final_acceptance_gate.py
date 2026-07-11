@@ -36,9 +36,18 @@ def read_json(path: Path):
 
 
 def contains_private_material(obj) -> bool:
-    raw = json.dumps(obj, ensure_ascii=False).lower()
-    danger = [
-        "-----begin private key-----",
+    """
+    Detect actual secret-bearing fields or PEM private-key material.
+
+    Safety declarations such as:
+      no_private_keys
+      no_raw_qkd_key_material
+
+    must not be treated as secret material.
+    """
+
+    dangerous_exact_keys = {
+        "private_key",
         "private_key_material",
         "raw_private_key",
         "raw_secret",
@@ -47,13 +56,52 @@ def contains_private_material(obj) -> bool:
         "password",
         "api_key",
         "access_token",
-    ]
-    return any(x in raw for x in danger)
+        "secret_key",
+        "client_secret",
+    }
+
+    private_key_markers = {
+        "-----begin private key-----",
+        "-----begin rsa private key-----",
+        "-----begin ec private key-----",
+        "-----begin openssh private key-----",
+        "-----begin encrypted private key-----",
+    }
+
+    def scan(value) -> bool:
+        if isinstance(value, dict):
+            for key, child in value.items():
+                normalized_key = str(key).strip().lower()
+
+                if normalized_key in dangerous_exact_keys:
+                    if child not in (None, "", False, [], {}):
+                        return True
+
+                if scan(child):
+                    return True
+
+            return False
+
+        if isinstance(value, list):
+            return any(scan(item) for item in value)
+
+        if isinstance(value, str):
+            lowered = value.lower()
+            return any(marker in lowered for marker in private_key_markers)
+
+        return False
+
+    return scan(obj)
 
 
-def raw_binary_marker_detected(obj) -> bool:
-    raw = json.dumps(obj, ensure_ascii=False).lower()
-    return any(x in raw for x in [".ots", ".tsr", ".tsa", ".token", ".der"])
+def raw_timestamp_binary_file_detected() -> bool:
+    forbidden_suffixes = {".ots", ".tsr", ".tsa", ".token", ".der"}
+
+    for path in DOCS.rglob("*"):
+        if path.is_file() and path.suffix.lower() in forbidden_suffixes:
+            return True
+
+    return False
 
 
 def main():
@@ -89,7 +137,7 @@ def main():
         "stage360_result_present": stage360 is not None,
         "stage360_target_hash_present": stage360_target_hash is not None,
         "private_material_detected": contains_private_material(stage371) if stage371 else False,
-        "raw_binary_marker_detected": raw_binary_marker_detected(stage371) if stage371 else False,
+        "raw_binary_marker_detected": raw_timestamp_binary_file_detected(),
     }
 
     decision = "final_acceptance_pending"

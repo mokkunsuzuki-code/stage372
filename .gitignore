@@ -46,3 +46,6 @@ docs/**/*.tsr
 docs/**/*.tsa
 docs/**/*.token
 docs/**/*.der
+
+__pycache__/
+*.pyc

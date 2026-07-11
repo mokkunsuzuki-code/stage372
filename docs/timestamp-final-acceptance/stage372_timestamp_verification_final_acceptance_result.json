@@ -1,13 +1,13 @@
 {
   "stage": 372,
   "engine": "Timestamp Verification Final Acceptance Gate with Stage371 First Receipt Binding",
-  "created_at": "2026-07-11T07:30:35.697122+00:00",
+  "created_at": "2026-07-11T07:37:33.428897+00:00",
   "source_stage": 371,
   "previous_hash": "a938c34f6d29796faac735a349286e4812020b944adc716f3fa080be1cd96d3f",
-  "decision": "block",
+  "decision": "final_acceptance_pending",
   "timestamp_verified": false,
   "reasons": [
-    "private_material_detected"
+    "stage371_first_receipt_not_generated"
   ],
   "checks": {
     "stage371_result_present": true,
@@ -18,14 +18,14 @@
     "stage371_not_rejected": true,
     "stage360_result_present": true,
     "stage360_target_hash_present": true,
-    "private_material_detected": true,
-    "raw_binary_marker_detected": true
+    "private_material_detected": false,
+    "raw_binary_marker_detected": false
   },
-  "final_acceptance_manifest_sha256": "02242d33ebcafb0fbc71e7f8719057c4d51464fb6369c9faff3410be21c0c2de",
+  "final_acceptance_manifest_sha256": "31272a949567c4f74d6c2afa88db12e945bc554489bedab958648827b0427d08",
   "final_acceptance_manifest": {
     "stage": 372,
     "manifest_type": "timestamp_verification_final_acceptance_manifest",
-    "created_at": "2026-07-11T07:30:35.697122+00:00",
+    "created_at": "2026-07-11T07:37:33.428897+00:00",
     "source_stage": 371,
     "previous_hash": "a938c34f6d29796faac735a349286e4812020b944adc716f3fa080be1cd96d3f",
     "stage371_result_sha256": "581d2354f9aad758e551968634a79695cdd64aec2298f443e1376b646700c54f",
@@ -33,9 +33,9 @@
     "stage371_receipt_status": "not_generated",
     "stage360_target_hash": "052c8f0283110e405443d56f2396c52a8486e7a70a489f831af107dad73ab1b5",
     "timestamp_verified": false,
-    "decision": "block",
+    "decision": "final_acceptance_pending",
     "reasons": [
-      "private_material_detected"
+      "stage371_first_receipt_not_generated"
     ],
     "safety_boundary": {
       "no_private_keys": true,
@@ -44,7 +44,7 @@
       "no_raw_timestamp_binaries_in_public_docs": true,
       "metadata_only_final_acceptance": true
     },
-    "manifest_sha256": "02242d33ebcafb0fbc71e7f8719057c4d51464fb6369c9faff3410be21c0c2de"
+    "manifest_sha256": "31272a949567c4f74d6c2afa88db12e945bc554489bedab958648827b0427d08"
   },
   "guarantee": {
     "what_stage372_guarantees": [
@@ -60,5 +60,5 @@
       "It does not verify Sigstore, Rekor, OCSP, or CRL."
     ]
   },
-  "result_sha256": "9d394b9d53ac81670505034fc569199674b71f27ae46aa489d1c000671e05505"
+  "result_sha256": "ef1847f09c7862d271d71e548f403f75c91b93b2ffc21dec6016f53e0db7c3aa"
 }

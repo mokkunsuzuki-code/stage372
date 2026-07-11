@@ -1,11 +1,11 @@
 Stage372: Timestamp Verification Final Acceptance Gate
 with Stage371 First Receipt Binding
 
-Decision: block
+Decision: final_acceptance_pending
 Timestamp Verified: False
 Previous Hash: a938c34f6d29796faac735a349286e4812020b944adc716f3fa080be1cd96d3f
-Manifest SHA256: 02242d33ebcafb0fbc71e7f8719057c4d51464fb6369c9faff3410be21c0c2de
-Result SHA256: 9d394b9d53ac81670505034fc569199674b71f27ae46aa489d1c000671e05505
+Manifest SHA256: 31272a949567c4f74d6c2afa88db12e945bc554489bedab958648827b0427d08
+Result SHA256: ef1847f09c7862d271d71e548f403f75c91b93b2ffc21dec6016f53e0db7c3aa
 
 Meaning:
 Stage372 is the final acceptance gate for timestamp verification.
